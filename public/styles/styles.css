@@ -1,3 +1,9 @@
 .list-group-item {
   line-height: 2.5;
 }
+
+.far.fa-heart,
+.fas {
+   color: red;
+
+}

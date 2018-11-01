@@ -104,23 +104,22 @@ app.get("/", function (req, res) {
   // });
 });
 
-app.post("/user", function (req, res) {
-  if (req.body.username) {
-    var userData = {
-      username: req.body.username
-    }
-    db.User.create(userData, function(error, user) {
-      if (error) {
-        throw error
-      } else {
-        console.log("user created")
-      }
-    })
-  }
+app.post("/fav", function (req, res) {
+  var articleID = req.body.articleID;
+  console.log(articleID)
+  db.Article.findByIdAndUpdate(articleID, { favorite: true }, function () {
+    res.json("")
+  })
 })
 
+app.get("/fav", function (req, res) {
+  db.Article.find({ favorite: true }, function (error, docs) {
+    res.json(docs)
+  })
+})
 
 //Listen on port 3030
 app.listen(PORT, function () {
   console.log("App running on port 3030")
 })
+

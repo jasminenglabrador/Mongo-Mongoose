@@ -1,26 +1,35 @@
 $(document).ready(function () {
-  $("form.login").on("submit", function(event) {
-    event.preventDefault();
-    var username = $("#loginID").val()
-    console.log(username)
+  //post to favorites
+  $(".far").on("click", function () {
+
+    $(this).attr("class", "fa fa-heart")
+    console.log("clicked")
+    var articleID = $(this).attr("id");
+    //comments
+
+    $.ajax({
+      method: "POST",
+      url: "/fav",
+      data: {
+        articleID: articleID
+      }
+    })
+      .then(function (data) {
+        console.log(data);
+      })
+      .catch(function (err) {
+        console.log(err);
+      })
   })
-  $("form.signup").on("submit", function(event) {
-    console.log("test")
-    event.preventDefault();
-    var username = document.getElementById("signupID").value
-    console.log(username)
-    $.post("/user",{
-      username: username
+  //view favorites
+  $("#favoritesLink").on("click", function (){
+    console.log("go into favorites")
+    $.ajax({
+      method: "GET",
+      url: "/fav",
     })
-    .then(function (data){
-      console.log("user added");
-      console.log(data)
-    })
-    .catch(function (err){
-      $("#alert .msg").text(err.responseJSON);
-      $("#alert").fadeIn(500);
+    .then(function(data) {
+      console.log(data);
     })
   })
 })
-
-

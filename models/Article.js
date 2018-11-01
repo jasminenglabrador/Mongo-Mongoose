@@ -32,7 +32,16 @@ var ArticleSchema = new Schema ({
     image: {
         type: String,
         trim: true
-    }
+    },
+
+    favorite: {
+        type: Boolean,
+        default: false
+    },
+
+    comments: [{
+        type: String
+    }]
 })
 
 var Article = mongoose.model("Article", ArticleSchema)
